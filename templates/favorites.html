@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FOMO Tracker - Favorites</title>
+  <style>
+    /* Same CSS as before */
+  </style>
+</head>
+<body>
+
+  <h1>Your Favorite Trends</h1>
+
+  <ul id="favorites-list"></ul>
+
+  <div id="message"></div>
+
+  <script>
+    // Inject favorites passed from Flask into JS
+    const favorites = {{ favorites | tojson }};
+
+    const favoritesList = document.getElementById('favorites-list');
+    const messageDiv = document.getElementById('message');
+
+    function displayFavorites() {
+      favoritesList.innerHTML = '';
+      messageDiv.textContent = '';
+
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = '<li>No favorites added yet.</li>';
+        return;
+      }
+
+      favorites.forEach((fav, index) => {
+        const li = document.createElement('li');
+        li.textContent = fav;
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Remove';
+        btn.className = 'remove-fav';
+        btn.onclick = () => removeFavorite(fav, index);
+
+        li.appendChild(btn);
+        favoritesList.appendChild(li);
+      });
+    }
+
+    async function removeFavorite(fav, index) {
+      try {
+        const response = await fetch('/remove_favorite', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ favorite: fav }),
+        });
+
+        if (response.ok) {
+          favorites.splice(index, 1);
+          displayFavorites();
+          messageDiv.style.color = 'green';
+          messageDiv.textContent = `"${fav}" removed from favorites.`;
+        } else {
+          throw new Error('Failed to remove favorite');
+        }
+      } catch (error) {
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = `Error: Could not remove "${fav}".`;
+      }
+    }
+
+    // Initial render
+    displayFavorites();
+  </script>
+
+</body>
+</html>
+

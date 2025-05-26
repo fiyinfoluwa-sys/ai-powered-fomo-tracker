@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FOMO Tracker - Trends</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button.add-fav {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    button.add-fav:hover {
+      background-color: #0056b3;
+    }
+    #message {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Today's FOMO Trends</h1>
+
+  <ul id="trends-list"></ul>
+
+  <div id="message"></div>
+
+  <script>
+    // Example trends data - replace this with your backend-rendered or API data
+    const trends = [
+      "Limited-time sneaker drop",
+      "Exclusive concert tickets released",
+      "Flash sale on popular gadgets",
+      "New viral TikTok challenge",
+      "Upcoming NFT auction"
+    ];
+
+    const trendsList = document.getElementById('trends-list');
+    const messageDiv = document.getElementById('message');
+
+    function displayTrends() {
+      trendsList.innerHTML = ''; // Clear list first
+      messageDiv.textContent = ''; // Clear messages
+
+      trends.forEach((trend) => {
+        const li = document.createElement('li');
+        li.textContent = trend;
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Add to Favorites';
+        btn.className = 'add-fav';
+        btn.onclick = () => addToFavorites(trend);
+
+        li.appendChild(btn);
+        trendsList.appendChild(li);
+      });
+    }
+
+    async function addToFavorites(trend) {
+      try {
+        const response = await fetch('/add_favorite', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ favorite: trend }),
+        });
+
+        if (response.ok) {
+          messageDiv.style.color = 'green';
+          messageDiv.textContent = `"${trend}" added to favorites!`;
+        } else {
+          throw new Error('Failed to add favorite');
+        }
+      } catch (error) {
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = `Error: Could not add "${trend}" to favorites.`;
+      }
+    }
+
+    // Initial render
+    displayTrends();
+  </script>
+
+</body>
+</html>
+
