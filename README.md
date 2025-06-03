@@ -61,15 +61,3 @@ The **AI-Powered FOMO (Fear of Missing Out) Tracker** is a Python-based applicat
 5. The system flags the post, adds it to the user’s dashboard feed, and optionally sends a push notification or email.
 6. The founder clicks through to view the full post and shares it with their network—ensuring they stay informed in real-time.
 
----
-
-## 🔄 Data Flow
-
-```mermaid
-graph TD
-    A[User-defined Topics] --> B[Reddit / Google Trends API]
-    B --> C[Text Preprocessing (NLP)]
-    C --> D[Sentiment & Relevance Scoring]
-    D --> E[Trend Tracker Module]
-    E --> F[Streamlit Dashboard]
-    D --> G[User Alerts Engine]
