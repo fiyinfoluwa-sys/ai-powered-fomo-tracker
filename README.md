@@ -34,19 +34,19 @@ The **AI-Powered FOMO (Fear of Missing Out) Tracker** is a Python-based applicat
 
 ### ✅ Current Capabilities
 
-- 🔄 Real-time scraping of Reddit subreddit activity
-- 💬 NLP-based keyword extraction and topic modeling (via OpenAI GPT)
-- 📈 Trend scoring using frequency, velocity, and sentiment metrics
-- 📊 Streamlit-based trend dashboard with auto-refresh intervals
-- 📌 Local keyword/watchlist matching for FOMO-relevance scoring
+- Real-time scraping of Reddit subreddit activity
+- NLP-based keyword extraction and topic modeling (via OpenAI GPT)
+- Trend scoring using frequency, velocity, and sentiment metrics
+- Streamlit-based trend dashboard with auto-refresh intervals
+- Local keyword/watchlist matching for FOMO-relevance scoring
 
 ### 🚀 Future Features
 
-- 📣 Alert system for spikes in topic relevance (SMS/Email via Twilio)
-- 🔍 Integration with X (Twitter) API and YouTube Trending Feed
-- 👤 User profiles and customizable interest vectors
-- 📂 Caching via SQLite or Firebase for faster load and historical views
-- 📤 Export options for trend reports (PDF, CSV, or Notion integration)
+- Alert system for spikes in topic relevance (SMS/Email via Twilio)
+- Integration with X (Twitter) API and YouTube Trending Feed
+- User profiles and customizable interest vectors
+- Caching via SQLite or Firebase for faster load and historical views
+- Export options for trend reports (PDF, CSV, or Notion integration)
 
 ---
 
